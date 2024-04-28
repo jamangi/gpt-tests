@@ -1,7 +1,4 @@
-from demo import generate
 from decouple import config
-from interactions import listen
-import interactions
 import discord
 from discord.ext import commands
 from session_manager import SessionManager
@@ -10,8 +7,8 @@ from time import sleep
 
 bot = commands.Bot(command_prefix=None, intents=discord.Intents.all())
 decider = Decider()
-conversation = [{"role": "user", "content": '[Raspberry Kitten] Are you there Kolulu?'},
-        {"role": "assistant", "content": "send text: Yes I'm here!"},]
+conversation = [{"role": "user", "content": f'[Raspberry Kitten] Are you there {config("NAME")}?'},
+                {"role": "assistant", "content": "send text: Yes I'm here!"},]
 session_manager = SessionManager(decider, conversation)
 
 
