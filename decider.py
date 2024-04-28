@@ -1,7 +1,9 @@
 from openai import OpenAI
 from decouple import config
-from default_mind import (MIND, OBJECTIVES, FACTS, PARSING_INSTRUCTIONS,
-                          PARSING_OPTIONS, PARSING_USAGE, NAME)
+from default_mind import (OBJECTIVES, FACTS, PARSING_INSTRUCTIONS,
+                          PARSING_OPTIONS, PARSING_USAGE)
+MIND = config("MIND")
+NAME = config("NAME")
 
 
 class Decider:

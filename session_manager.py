@@ -1,7 +1,6 @@
 from openai import OpenAI
 from decouple import config
-from default_mind import (MIND, OBJECTIVES, FACTS, PARSING_INSTRUCTIONS,
-                          PARSING_OPTIONS, PARSING_USAGE)
+from default_mind import PARSING_OPTIONS
 
 
 class SessionManager:
