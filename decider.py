@@ -1,11 +1,11 @@
 from openai import OpenAI
 from decouple import config
 from default_mind import (MIND, OBJECTIVES, FACTS, PARSING_INSTRUCTIONS,
-                          PARSING_OPTIONS, PARSING_USAGE)
+                          PARSING_OPTIONS, PARSING_USAGE, NAME)
 
 
 class Decider:
-    def __init__(self, name="Kolulu", mind=MIND, objectives=OBJECTIVES,
+    def __init__(self, name=NAME, mind=MIND, objectives=OBJECTIVES,
                  facts=FACTS, parsing_instructions=PARSING_INSTRUCTIONS,
                  parsing_options=PARSING_OPTIONS,
                  parsing_usage=PARSING_USAGE):
