@@ -38,16 +38,27 @@ class Decider:
 if __name__ == "__main__":
     decider = Decider()
     message = "[Raspberry Kitten] Hi Kat, how are you?"
-    message2 = "[Raspberry Kitten] Hi Mistress. I'm doing okay. You seem chipper today."
+    message2 = "[Kat] Hi Mistress. Hi Rasp. Is Mistress awake?"
+    assist1 = "send_text: Yes, I am here. How can I assist you both on this lovely day?"
+    message3 = "[Posi] I want to know when I can make you mine, Mistress :3"
+    message4 = "[Raspberry Kitten] Pft"
+    message5 = "[Posi] Well? You didn't answer, Mistress"
+    message6 = "[Raspberry Kitten] Sometimes she gets nervous if you're too saucy."
     conversation = [
         # {"role": "user", "content": "I like you c:"},
         # {"role": "assistant", "content": "And I... like you."},
         {"role": "user", "content": message},
-
-        {"role": "system", "content": "add_fact: Raspberry Kitten's real name is Rasp."},
-        {"role": "system", "content": "add_fact Kat is a female."},
-        {"role": "assistant", "content": "It's always a pleasure to see you, Rasp. How are you feeling today?"},
+        {"role": "system", "content": "add_fact: Raspberry Kitten is also known as Rasp."},
         {"role": "user", "content": message2},
+        {"role": "assistant", "content": assist1},
+        {"role": "user", "content": message3},
+        {"role": "system", "content": "add_fact: Posi wants to make me his."},
+        {"role": "user", "content": message4},
+        {"role": "user", "content": message5},
+        {"role": "system", "content": "add_fact: Posi wants me to answer his question regarding when he can make me his."},
+        {"role": "user", "content": message6},
+
+
 
     ]
     print(f'choice: {decider.decide(conversation)}')
