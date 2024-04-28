@@ -18,24 +18,12 @@ PARSING_INSTRUCTIONS = ("When you receive a message, "
                         "your personality, and your objectives. Ensure your response is always one of the "
                         "options, so that your message can be conveyed by our system.")
 
-PARSING_OPTIONS = ["add_fact", "add_objective", "remove_fact", "remove_objective",
-                   "send_text", "send_emoji", "do_nothing"]
+PARSING_OPTIONS = ["send_text", "send_emoji"]
 
 PARSING_USAGE = ("Each of the options requires some combination of inputs, which I'll denote with X. "
-                 "add_fact: X -> means that you should say what the fact is that you want to store after 'add_fact'"
-                 ""
-                 "add_objective: X"
-                 ""
-                 "remove_fact: X"
-                 ""
-                 "remove_objective: X"
-                 ""
                  "send_text: X -> X in this case is the text you would like to send."
                  ""
                  "send_emoji: X -> X in this case is the emoji you would like to send"
-                 ""
-                 "do_nothing:"
-                 ""
                  )
 
 FACTS = ("VickyBean [a person] is a male who has the nickname 'Vick'."

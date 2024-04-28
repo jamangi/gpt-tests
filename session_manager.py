@@ -12,12 +12,15 @@ class SessionManager:
     def process_user_message(self, message):
         self.conversation.append({"role": "user", "content": message})
         choices = self.decider.decide(self.conversation)
+        if len(self.conversation) > 10:
+            self.compress_conversation()
         print(f'choices: {choices}')
         match choices.split(':'):
             case["do_nothing"] | ["send_text"] | ["send_emoji"] | ["do nothing"] | ["send text"] | ["send emoji"]:
                 return None
             case [option, argument]:
                 if option in PARSING_OPTIONS:
+                    argument = argument.replace("'", "\'").replace('"', '\"')
                     return eval(f'self.{option}("{argument}")')
                 else:
                     return self.send_text(choices)
@@ -26,6 +29,20 @@ class SessionManager:
 
     def process_bot_message(self, message):
         self.conversation.append({"role": "assistant", "content": message})
+
+    def compress_conversation(self):
+        client = OpenAI(api_key=config('OPENAI_API_KEY'))
+        request = [
+            {"role": "system", "content": "observe the following conversation history, "
+                                          "and try to compress it all into a single comprehensive summary"},
+        ]
+        request.extend(self.conversation)
+        request.append({"role": "system", "content": "Like I said, try to compress all that "
+                                                     "into a single comprehensive summary. "
+                                                     "Use the names mentioned in the history in your summary"})
+        summary = client.chat.completions.create(model="gpt-3.5-turbo", messages=request)
+        self.conversation = [{"role": "system", "content": summary.choices[0].message.content}]
+        print(f'history summary: {summary.choices[0].message.content}')
 
     def add_fact(self, fact):
         action = 'add_fact: ' + fact
