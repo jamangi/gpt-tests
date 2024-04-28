@@ -1,7 +1,7 @@
 from openai import OpenAI
 from decouple import config
 from default_mind import (MIND, OBJECTIVES, FACTS, PARSING_INSTRUCTIONS,
-                          PARSING_OPTIONS, PARSING_EXPLANATION, PARSING_USAGE)
+                          PARSING_OPTIONS, PARSING_USAGE)
 
 
 class SessionManager:
@@ -14,13 +14,13 @@ class SessionManager:
         choices = self.decider.decide(self.conversation)
         print(f'choices: {choices}')
         match choices.split(':'):
+            case["do_nothing"] | ["send_text"] | ["send_emoji"] | ["do nothing"] | ["send text"] | ["send emoji"]:
+                return None
             case [option, argument]:
                 if option in PARSING_OPTIONS:
                     return eval(f'self.{option}("{argument}")')
                 else:
                     return self.send_text(choices)
-            case ["do_nothing"] | ["send_text"] | ["send_emoji"]:
-                return None
             case _:
                 return self.send_text(choices)
 
@@ -28,12 +28,12 @@ class SessionManager:
         self.conversation.append({"role": "assistant", "content": message})
 
     def add_fact(self, fact):
-        action = '[add_fact] ' + fact
+        action = 'add_fact: ' + fact
         self.conversation.append({"role": "system", "content": action})
         print(action)
 
     def add_objective(self, objective):
-        action = '[add_objective] ' + objective
+        action = 'add_objective: ' + objective
         self.conversation.append({"role": "system", "content": action})
         print(action)
 
@@ -49,7 +49,7 @@ class SessionManager:
     def send_emoji(self, text):
         return text
 
-    def do_nothing(self):
+    def do_nothing(self, text=None):
         pass
 
 

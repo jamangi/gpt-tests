@@ -6,10 +6,12 @@ import discord
 from discord.ext import commands
 from session_manager import SessionManager
 from decider import Decider
+from time import sleep
 
 bot = commands.Bot(command_prefix=None, intents=discord.Intents.all())
 decider = Decider()
-conversation = []
+conversation = [{"role": "user", "content": '[Raspberry Kitten] Are you there Kolulu?'},
+        {"role": "assistant", "content": "send text: Yes I'm here!"},]
 session_manager = SessionManager(decider, conversation)
 
 
@@ -25,11 +27,15 @@ async def on_message(message):
     if message.author == bot.user:
         session_manager.process_bot_message(message.content)
     else:
-        username = message.author.name
-        content = f'[{username}] {message.content}'
-        result = session_manager.process_user_message(content)
-        if result:
-            await message.channel.send(result)
+        username = message.author.nick
+        content = f'{username}: {message.content}'
+        if decider.name.lower() in content.lower():
+            result = session_manager.process_user_message(content)
+            if result and not message.reference and (not message.mentions or bot.user in message.mentions):
+                sleep(3)
+                await message.channel.send(result)
+        else:
+            session_manager.conversation.append({"role": "user", "content": content})
 
 
 

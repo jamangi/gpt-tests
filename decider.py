@@ -1,21 +1,21 @@
 from openai import OpenAI
 from decouple import config
 from default_mind import (MIND, OBJECTIVES, FACTS, PARSING_INSTRUCTIONS,
-                          PARSING_OPTIONS, PARSING_EXPLANATION, PARSING_USAGE)
+                          PARSING_OPTIONS, PARSING_USAGE)
 
 
 class Decider:
-    def __init__(self, mind=MIND, objectives=OBJECTIVES,
-                 facts=FACTS, parsing_options=PARSING_OPTIONS,
-                 parsing_explanation=PARSING_EXPLANATION,
+    def __init__(self, name="Kolulu", mind=MIND, objectives=OBJECTIVES,
+                 facts=FACTS, parsing_instructions=PARSING_INSTRUCTIONS,
+                 parsing_options=PARSING_OPTIONS,
                  parsing_usage=PARSING_USAGE):
+        self.name = name
         self.mind = mind
         self.objectives = objectives
         self.facts = facts
-        self.parsing_instructions = PARSING_INSTRUCTIONS
+        self.parsing_instructions = parsing_instructions
         self.parsing_options = parsing_options
-        self.parsing_explanation = parsing_explanation
-        self.parsing_usage = PARSING_USAGE
+        self.parsing_usage = parsing_usage
 
     def decide(self, conversation):
         client = OpenAI(api_key=config('OPENAI_API_KEY'))
@@ -24,7 +24,6 @@ class Decider:
             {"role": "system", "content": self.objectives},
             {"role": "system", "content": self.facts},
             {"role": "system", "content": self.parsing_instructions},
-            {"role": "system", "content": self.parsing_explanation},
             {"role": "system", "content": self.parsing_usage},
             {"role": "system", "content": "Options: " + " ".join(self.parsing_options)},
         ]
@@ -38,11 +37,11 @@ class Decider:
 if __name__ == "__main__":
     decider = Decider()
     message = "[Raspberry Kitten] Hi Kat, how are you?"
-    message2 = "[Kat] Hi Mistress. Hi Rasp. Is Mistress awake?"
-    assist1 = "send_text: Yes, I am here. How can I assist you both on this lovely day?"
+    message2 = "[Kat] Hi Mistress. Hi Rasp. Is Kolulu awake?"
+    assist1 = "send_text: Yes, I am here!"
     message3 = "[Posi] I want to know when I can make you mine, Mistress :3"
     message4 = "[Raspberry Kitten] Pft"
-    message5 = "[Posi] Well? You didn't answer, Mistress"
+    message5 = "[Posi] Well? You didn't answer, Kolulu"
     message6 = "[Raspberry Kitten] Sometimes she gets nervous if you're too saucy."
     conversation = [
         # {"role": "user", "content": "I like you c:"},
