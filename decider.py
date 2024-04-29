@@ -1,9 +1,10 @@
 from openai import OpenAI
 from decouple import config
-from default_mind import (OBJECTIVES, FACTS, PARSING_INSTRUCTIONS,
+from default_mind import (OBJECTIVES, PARSING_INSTRUCTIONS,
                           PARSING_OPTIONS, PARSING_USAGE)
 MIND = config("MIND")
 NAME = config("NAME")
+FACTS = config("FACTS")
 
 
 class Decider:
@@ -25,9 +26,9 @@ class Decider:
             {"role": "system", "content": self.mind},
             {"role": "system", "content": self.objectives},
             {"role": "system", "content": self.facts},
-            {"role": "system", "content": self.parsing_instructions},
-            {"role": "system", "content": self.parsing_usage},
-            {"role": "system", "content": "Options: " + " ".join(self.parsing_options)},
+            # {"role": "system", "content": self.parsing_instructions},
+            # {"role": "system", "content": self.parsing_usage},
+            # {"role": "system", "content": "Options: " + " ".join(self.parsing_options)},
         ]
         messages = system_messages + conversation
 
