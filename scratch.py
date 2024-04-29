@@ -4,6 +4,7 @@ from discord.ext import commands
 from session_manager import SessionManager
 from decider import Decider
 from time import sleep
+from discord.member import Member
 
 bot = commands.Bot(command_prefix=None, intents=discord.Intents.all())
 decider = Decider()
@@ -24,7 +25,7 @@ async def on_message(message):
     if message.author == bot.user:
         session_manager.process_bot_message(message.content)
     else:
-        username = getattr(message.author, 'nick', message.author.name)
+        username = getattr(message.author, 'display_name', message.author.name)
         content = f'{username}: {message.content}'
         if decider.name.lower() in content.lower():
             result = session_manager.process_user_message(content)

@@ -7,10 +7,10 @@ class SessionManager:
         self.conversation = conversation
 
     def process_user_message(self, message):
-        self.conversation.append({"role": "user", "content": message})
-        reply = self.decider.decide(self.conversation)
         if len(self.conversation) > 10:
             self.compress_conversation()
+        self.conversation.append({"role": "user", "content": message})
+        reply = self.decider.decide(self.conversation)
         return self.send_text(reply)
 
     def process_bot_message(self, message):
