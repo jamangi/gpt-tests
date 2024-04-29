@@ -1,7 +1,5 @@
 from openai import OpenAI
 from decouple import config
-from default_mind import PARSING_OPTIONS
-
 
 class SessionManager:
     def __init__(self, decider, conversation):
@@ -10,21 +8,10 @@ class SessionManager:
 
     def process_user_message(self, message):
         self.conversation.append({"role": "user", "content": message})
-        choices = self.decider.decide(self.conversation)
+        reply = self.decider.decide(self.conversation)
         if len(self.conversation) > 10:
             self.compress_conversation()
-        print(f'choices: {choices}')
-        match choices.split(':'):
-            case["do_nothing"] | ["send_text"] | ["send_emoji"] | ["do nothing"] | ["send text"] | ["send emoji"]:
-                return None
-            case [option, argument]:
-                if option in PARSING_OPTIONS:
-                    argument = argument.replace("'", "\'").replace('"', '\"')
-                    return eval(f'self.{option}("{argument}")')
-                else:
-                    return self.send_text(choices)
-            case _:
-                return self.send_text(choices)
+        return self.send_text(reply)
 
     def process_bot_message(self, message):
         self.conversation.append({"role": "assistant", "content": message})
