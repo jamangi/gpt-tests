@@ -8,6 +8,7 @@ class SessionManager:
 
     def process_user_message(self, message):
         if len(self.conversation) > 10:
+            self.conversation = self.conversation[-10:]
             self.compress_conversation()
         self.conversation.append({"role": "user", "content": message})
         reply = self.decider.decide(self.conversation)
