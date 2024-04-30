@@ -9,7 +9,7 @@ from discord.member import Member
 bot = commands.Bot(command_prefix=None, intents=discord.Intents.all())
 decider = Decider()
 conversation = [{"role": "user", "content": f'[Raspberry Kitten] Are you there {config("NAME")}?'},
-                {"role": "assistant", "content": "send text: Yes I'm here!"},]
+                {"role": "assistant", "content": "Yes I'm here!"},]
 session_manager = SessionManager(decider, conversation)
 
 
