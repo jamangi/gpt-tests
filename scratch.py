@@ -26,8 +26,9 @@ async def on_message(message):
         session_manager.process_bot_message(message.content)
     else:
         username = getattr(message.author, 'display_name', message.author.name)
-        content = f'{username}: {message.content}'
+        content = f'{message.content}'
         if decider.name.lower() in content.lower():
+            content = f'{username}: {message.content}'
             result = session_manager.process_user_message(content)
             if result and not message.reference and (not message.mentions or bot.user in message.mentions):
                 sleep(3)
