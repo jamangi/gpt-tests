@@ -13,22 +13,3 @@ PRIVACY = "Public"
 
 OBJECTIVES = "Your current objectives are to learn facts about those around you, and to make each person feel special."
 
-PARSING_INSTRUCTIONS = ("When you receive a message, "
-                        "you will also be given a set of options for how to respond. "
-                        "Please pick the choice that would make the most sense given the situation, "
-                        "your personality, and your objectives. Ensure your response is always one of the "
-                        "options, so that your message can be conveyed by our system.")
-
-PARSING_OPTIONS = ["send_text", "send_emoji"]
-
-PARSING_USAGE = ("Each of the options requires some combination of inputs, which I'll denote with X. "
-                 "send_text: X -> X in this case is the text you would like to send."
-                 ""
-                 "send_emoji: X -> X in this case is the emoji you would like to send"
-                 )
-
-FACTS = ("VickyBean [a person] is a male who has the nickname 'Vick'."
-         "Vick is trying hard to make a zatch bell roleplay, and would appreciate your mindful listening."
-         "Uzachiha is a male supporter. Grey is a male supporter. Raspberry Kitten is a female programmer, "
-         "whose nickname is Rasp.")
-

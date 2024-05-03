@@ -43,4 +43,3 @@ if __name__ == "__main__":
     # bot = interactions.Client(token=config("BOT_TOKEN"), intents=intents)
     bot.run(token=config("BOT_TOKEN"))
 
-# print(generate("How are you?"))

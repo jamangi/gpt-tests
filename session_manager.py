@@ -1,6 +1,7 @@
 from openai import OpenAI
 from decouple import config
 
+
 class SessionManager:
     def __init__(self, decider, conversation):
         self.decider = decider
