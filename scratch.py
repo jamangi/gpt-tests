@@ -22,7 +22,7 @@ async def on_ready():
 async def on_message(message):
     # print(f"message received: {message}")
     # print(message.content)
-    if message.author == bot.user:
+    if message.author == bot.user or message.author.bot:
         session_manager.process_bot_message(message.content)
     else:
         username = getattr(message.author, 'display_name', message.author.name)
